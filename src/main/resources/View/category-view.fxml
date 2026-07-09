@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller.CategoriaController"
+      spacing="10" style="-fx-padding: 20; -fx-background-color: white;">
+
+    <children>
+        <!-- Título -->
+        <Label text="Gestión de Categorías"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+        <!-- Barra de herramientas -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <children>
+                <TextField fx:id="searchField" promptText="Buscar categoría..."
+                           prefWidth="300" style="-fx-padding: 8;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnNuevo" text="Nueva Categoría"
+                        onAction="#handleNuevo"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;"/>
+                <Button fx:id="btnEditar" text="Editar"
+                        onAction="#handleEditar" disable="true"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;"/>
+                <Button fx:id="btnEliminar" text="Eliminar"
+                        onAction="#handleEliminar" disable="true"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;"/>
+                <Button fx:id="btnActualizar" text="Actualizar"
+                        onAction="#handleActualizar"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;"/>
+            </children>
+        </HBox>
+
+        <!-- Tabla de categorías -->
+        <TableView fx:id="categoriaTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="250"/>
+                <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="500"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+
+        <!-- Estadísticas -->
+        <HBox spacing="20" style="-fx-padding: 10 0 0 0;">
+            <children>
+                <Label text="Total de categorías: " style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalLabel" text="0"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label style="-fx-font-size: 11px; -fx-text-fill: #7f8c8d;"
+                       text="* Las categorías con productos asociados no se pueden eliminar"/>
+            </children>
+        </HBox>
+    </children>
+</VBox>
