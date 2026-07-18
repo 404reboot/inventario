@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="controlador.ReportController"
+         tabClosingPolicy="UNAVAILABLE"
+         style="-fx-padding: 10;">
+
+    <Tab text="📊 Dashboard" closable="false">
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Panel de Control de Inventario"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+            <GridPane hgap="20" vgap="20">
+                <children>
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          style="-fx-background-color: #3498db; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label text="Productos" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblTotalProducts" text="0"
+                               style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
+                          style="-fx-background-color: #27ae60; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label text="Stock Total" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblTotalStock" text="0"
+                               style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <VBox GridPane.columnIndex="2" GridPane.rowIndex="0"
+                          style="-fx-background-color: #e74c3c; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label text="Stock Bajo" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblLowStock" text="0"
+                               style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <VBox GridPane.columnIndex="3" GridPane.rowIndex="0"
+                          style="-fx-background-color: #f39c12; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label text="Valor Total" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblTotalValue" text="0"
+                               style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    </VBox>
+                </children>
+            </GridPane>
+
+            <HBox spacing="15">
+                <Button fx:id="btnStockPdf" text="Exportar Stock (PDF)"
+                        style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 25; -fx-font-weight: bold;"/>
+                <Button fx:id="btnStockExcel" text="Exportar Stock (Excel)"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 25; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </Tab>
+
+    <Tab text="⚠️ Alerta Reposición" closable="false">
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Productos con Alerta de Stock Mínimo"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Definir límite de stock mínimo:" style="-fx-font-size: 14px;"/>
+                <Spinner fx:id="spinStockThreshold" prefWidth="100"/>
+            </HBox>
+
+            <HBox spacing="15">
+                <Button fx:id="btnLowStockPdf" text="Descargar Alerta PDF"
+                        style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 25; -fx-font-weight: bold;"/>
+                <Button fx:id="btnLowStockExcel" text="Descargar Alerta Excel"
+                        style="-fx-background-color: #d35400; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 25; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </Tab>
+
+    <Tab text="📋 Movimientos" closable="false">
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Filtrar Movimientos Históricos"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Fecha Inicial:" style="-fx-font-weight: bold;"/>
+                <DatePicker fx:id="dpStartDate" prefWidth="140"/>
+                <Label text="Fecha Final:" style="-fx-font-weight: bold;"/>
+                <DatePicker fx:id="dpEndDate" prefWidth="140"/>
+            </HBox>
+
+            <HBox spacing="15">
+                <Button fx:id="btnMovementsPdf" text="Generar Historial PDF"
+                        style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 25; -fx-font-weight: bold;"/>
+                <Button fx:id="btnMovementsExcel" text="Generar Historial Excel"
+                        style="-fx-background-color: #16a085; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 25; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </Tab>
+
+    <Tab text="📈 Estadísticas" closable="false">
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Productos con Mayor Rotación / Actividad"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Cantidad de productos a mostrar en el Top:" style="-fx-font-size: 14px;"/>
+                <Spinner fx:id="spinMostMovedLimit" prefWidth="100"/>
+            </HBox>
+
+            <HBox spacing="15">
+                <Button fx:id="btnMostMovedPdf" text="Exportar Top PDF"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 25; -fx-font-weight: bold;"/>
+                <Button fx:id="btnMostMovedExcel" text="Exportar Top Excel"
+                        style="-fx-background-color: #117a65; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 25; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </Tab>
+</TabPane>

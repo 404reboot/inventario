@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.ProductController"
+      spacing="10" style="-fx-padding: 20; -fx-background-color: white;">
+
+    <children>
+        <Label text="Gestión de Productos"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <children>
+                <TextField fx:id="searchField" promptText="Buscar por nombre o código..."
+                           prefWidth="300" style="-fx-padding: 8;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnNuevo" text="Nuevo Producto"
+                        onAction="#handleNuevo"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;"/>
+                <Button fx:id="btnEditar" text="Editar"
+                        onAction="#handleEditar" disable="true"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;"/>
+                <Button fx:id="btnEliminar" text="Eliminar"
+                        onAction="#handleEliminar" disable="true"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;"/>
+                <Button fx:id="btnActualizar" text="Actualizar"
+                        onAction="#handleActualizar"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;"/>
+            </children>
+        </HBox>
+
+        <TableView fx:id="productTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="colCodigo" text="Código" prefWidth="100"/>
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="200"/>
+                <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="120"/>
+                <TableColumn fx:id="colPrecioVenta" text="Precio Venta" prefWidth="100"/>
+                <TableColumn fx:id="colStock" text="Stock" prefWidth="80"/>
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+
+        <HBox spacing="20" style="-fx-padding: 10 0 0 0;">
+            <children>
+                <Label text="Total de productos: " style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalLabel" text="0"/>
+            </children>
+        </HBox>
+    </children>
+</VBox>
