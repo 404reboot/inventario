@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="Controller.ReportController"
+         tabClosingPolicy="UNAVAILABLE"
+         style="-fx-padding: 10;">
+
+    <!-- Pestaña: Dashboard de Inventario -->
+    <Tab text="📊 Dashboard" closable="false">
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Panel de Control de Inventario"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+            <!-- Tarjetas de resumen -->
+            <GridPane hgap="20" vgap="20">
+                <children>
+                    <!-- Tarjeta 1 -->
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          style="-fx-background-color: #3498db; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label text="Productos" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblTotalProducts" text="0"
+                               style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <!-- Tarjeta 2 -->
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
+                          style="-fx-background-color: #27ae60; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label text="Stock Total" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblTotalStock" text="0"
+                               style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <!-- Tarjeta 3 -->
+                    <VBox GridPane.columnIndex="2" GridPane.rowIndex="0"
+                          style="-fx-background-color: #e74c3c; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label text="Stock Bajo" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblLowStock" text="0"
+                               style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <!-- Tarjeta 4 -->
+                    <VBox GridPane.columnIndex="3" GridPane.rowIndex="0"
+                          style="-fx-background-color: #f39c12; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label text="Valor Total" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblTotalValue" text="0"
+                               style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    </VBox>
+                </children>
+            </GridPane>
+
+            <Button fx:id="btnGenerateInventoryReport" text="Generar Reporte Completo"
+                    onAction="#handleGenerateInventoryReport"
+                    style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15 30; -fx-font-weight: bold;"/>
+        </VBox>
+    </Tab>
+
+    <!-- Pestaña: Stock Bajo -->
+    <Tab text="Stock Bajo" closable="false">
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Productos con Stock Bajo"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;"/>
+
+            <TableView fx:id="lowStockTable" VBox.vgrow="ALWAYS">
+                <!-- Columnas de productos con stock bajo -->
+            </TableView>
+
+            <Button fx:id="btnGenerateLowStockReport" text="Generar Reporte de Stock Bajo"
+                    onAction="#handleGenerateLowStockReport"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15 30; -fx-font-weight: bold;"/>
+        </VBox>
+    </Tab>
+
+    <!-- Pestaña: Movimientos -->
+    <Tab text="📋 Movimientos" closable="false">
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Reporte de Movimientos"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Período:" style="-fx-font-weight: bold;"/>
+                <DatePicker fx:id="startDatePicker" prefWidth="120"/>
+                <Label text="a"/>
+                <DatePicker fx:id="endDatePicker" prefWidth="120"/>
+                <Label text="Tipo:" style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="movementTypeFilter" prefWidth="100"/>
+            </HBox>
+
+            <Button fx:id="btnGenerateMovementsReport" text="Generar Reporte de Movimientos"
+                    onAction="#handleGenerateMovementsReport"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15 30; -fx-font-weight: bold;"/>
+        </VBox>
+    </Tab>
+
+    <!-- Pestaña: Categorías -->
+    <Tab text="🏷️ Categorías" closable="false">
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Reporte de Categorías"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+            <Label text="Genera un reporte con todas las categorías y sus productos"
+                   style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+
+            <Button fx:id="btnGenerateCategoriesReport" text="Generar Reporte de Categorías"
+                    onAction="#handleGenerateCategoriesReport"
+                    style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15 30; -fx-font-weight: bold;"/>
+        </VBox>
+    </Tab>
+</TabPane>

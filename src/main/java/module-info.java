@@ -3,8 +3,10 @@ module inventario {
     requires javafx.fxml;
     requires java.sql;
     requires mysql.connector.j;
+    requires com.github.librepdf.openpdf;
     requires javafx.base;
     requires javafx.graphics;
+    requires java.desktop;
 
     exports App;
     exports Controller;

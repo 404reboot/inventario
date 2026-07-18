@@ -55,6 +55,11 @@ public class MainController {
         loadView("/View/category-view.fxml");
     }
 
+    @FXML
+    private void handleMovimientos() {
+        loadView("/View/movement-view.fxml");
+    }
+
     private void loadView(String fxmlPath) {
         try {
             Parent view = FXMLLoader.load(getClass().getResource(fxmlPath));

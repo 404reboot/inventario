@@ -20,8 +20,7 @@
                 <MenuItem text="Categorías" onAction="#handleCategorias"/>
             </Menu>
             <Menu text="Movimientos">
-                <MenuItem text="Entrada de Productos"/>
-                <MenuItem text="Salida de Productos"/>
+                <MenuItem text="Registrar Movimientos" onAction="#handleMovimientos"/>
             </Menu>
             <Menu text="Reportes">
                 <MenuItem text="Inventario General"/>

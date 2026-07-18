@@ -172,6 +172,36 @@ public class InventoryMovementDAO {
         return movements;
     }
 
+    // Obtener movimientos por tipo
+    public List<InventoryMovement> getMovementsByType(String tipo) {
+        List<InventoryMovement> movements = new ArrayList<>();
+        String query = "SELECT m.*, p.nombre as producto_nombre, p.codigo as producto_codigo, " +
+                "u.nombre_completo as usuario_nombre " +
+                "FROM movimientos_inventario m " +
+                "LEFT JOIN productos p ON m.producto_id = p.id " +
+                "LEFT JOIN usuarios u ON m.usuario_id = u.id " +
+                "WHERE m.tipo_movimiento = ? " +
+                "ORDER BY m.fecha_movimiento DESC";
+
+        try (Connection conn = DBConnection.conectar();
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, tipo);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                InventoryMovement movement = extractMovementFromResultSet(rs);
+                movements.add(movement);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener movimientos por tipo: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return movements;
+    }
+
+    // Método auxiliar para extraer movimiento de ResultSet
     private InventoryMovement extractMovementFromResultSet(ResultSet rs) throws SQLException {
         InventoryMovement movement = new InventoryMovement();
         movement.setId(rs.getInt("id"));
@@ -185,11 +215,97 @@ public class InventoryMovementDAO {
         movement.setMotivo(rs.getString("motivo"));
         movement.setUsuarioId(rs.getInt("usuario_id"));
         movement.setUsuarioNombre(rs.getString("usuario_nombre"));
+        movement.setReferencia(rs.getString("referencia"));
         Timestamp timestamp = rs.getTimestamp("fecha_movimiento");
         if (timestamp != null) {
             movement.setFechaMovimiento(timestamp.toLocalDateTime());
         }
-        movement.setReferencia(rs.getString("referencia"));
+
         return movement;
+    }
+
+    // Resumen de movimientos por período
+    public MovementSummary getMovementSummary(LocalDateTime startDate, LocalDateTime endDate) {
+        MovementSummary summary = new MovementSummary();
+        String query = "SELECT " +
+                "SUM(CASE WHEN tipo_movimiento = 'ENTRADA' THEN cantidad ELSE 0 END) as total_entradas, " +
+                "SUM(CASE WHEN tipo_movimiento = 'SALIDA' THEN cantidad ELSE 0 END) as total_salidas, " +
+                "SUM(CASE WHEN tipo_movimiento = 'ENTRADA' THEN subtotal ELSE 0 END) as valor_entradas, " +
+                "SUM(CASE WHEN tipo_movimiento = 'SALIDA' THEN subtotal ELSE 0 END) as valor_salidas, " +
+                "COUNT(*) as total_movimientos " +
+                "FROM movimientos_inventario " +
+                "WHERE fecha_movimiento BETWEEN ? AND ?";
+
+        try (Connection conn = DBConnection.conectar();
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, startDate.format(DATE_FORMATTER));
+            pstmt.setString(2, endDate.format(DATE_FORMATTER));
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                summary.setTotalEntradas(rs.getInt("total_entradas"));
+                summary.setTotalSalidas(rs.getInt("total_salidas"));
+                summary.setValorEntradas(rs.getBigDecimal("valor_entradas"));
+                summary.setValorSalidas(rs.getBigDecimal("valor_salidas"));
+                summary.setTotalMovimientos(rs.getInt("total_movimientos"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener resumen de movimientos: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return summary;
+    }
+
+    // Clase interna para resumen de movimientos
+    public static class MovementSummary {
+        private int totalEntradas;
+        private int totalSalidas;
+        private BigDecimal valorEntradas = BigDecimal.ZERO;
+        private BigDecimal valorSalidas = BigDecimal.ZERO;
+        private int totalMovimientos;
+
+        // Getters y Setters
+        public int getTotalEntradas() {
+            return totalEntradas;
+        }
+
+        public void setTotalEntradas(int totalEntradas) {
+            this.totalEntradas = totalEntradas;
+        }
+
+        public int getTotalSalidas() {
+            return totalSalidas;
+        }
+
+        public void setTotalSalidas(int totalSalidas) {
+            this.totalSalidas = totalSalidas;
+        }
+
+        public BigDecimal getValorEntradas() {
+            return valorEntradas;
+        }
+
+        public void setValorEntradas(BigDecimal valorEntradas) {
+            this.valorEntradas = valorEntradas;
+        }
+
+        public BigDecimal getValorSalidas() {
+            return valorSalidas;
+        }
+
+        public void setValorSalidas(BigDecimal valorSalidas) {
+            this.valorSalidas = valorSalidas;
+        }
+
+        public int getTotalMovimientos() {
+            return totalMovimientos;
+        }
+
+        public void setTotalMovimientos(int totalMovimientos) {
+            this.totalMovimientos = totalMovimientos;
+        }
     }
 }
