@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+
+
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.example.inventario/app.Main",
+            "projectName": "inventario"
+        },
+        {
+            "type": "java",
+            "name": "Ejecutar Inventario",
+            "request": "launch",
+            "mainClass": "app.Main"
+        }
+    ]
+}

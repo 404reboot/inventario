@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class conexionDB {
 
     /** URL JDBC de la base de datos MySQL local del sistema (esquema {@code inventario_db}). */
-    private static final String URL = "jdbc:mysql://localhost:3306/inventario";
+    private static final String URL = "jdbc:mysql://localhost:3306/inventario_db";
     /** Usuario utilizado para autenticarse contra la base de datos. */
     private static final String USER = "root";
     /** Contraseña utilizada para autenticarse contra la base de datos. */

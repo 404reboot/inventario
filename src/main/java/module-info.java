@@ -2,7 +2,7 @@ module com.example.inventario {
     // Módulos requeridos base
     requires javafx.controls;
     requires javafx.fxml;
-    requires transitive javafx.graphics;
+    requires transitive javafx.graphics; 
     requires transitive java.sql;
     requires mysql.connector.j;
     requires java.desktop;
@@ -14,7 +14,7 @@ module com.example.inventario {
 
     // Exportar paquetes
     exports app;
-    exports controlador;
+    exports controlador; 
     exports modelo;
 
     // Abrir paquetes para JavaFX (Ajustado para corregir accesos de componentes)
