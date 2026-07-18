@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controlador.MainController"
+            prefWidth="1024" prefHeight="768">
+
+    <top>
+        <MenuBar>
+            <Menu text="Archivo">
+                <MenuItem text="Cerrar Sesión" onAction="#handleLogout"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Salir" onAction="#handleExit"/>
+            </Menu>
+            <Menu text="Inventario">
+                <MenuItem text="Productos" onAction="#handleProductos"/>
+                <MenuItem text="Categorías" onAction="#handleCategorias"/>
+            </Menu>
+            <Menu text="Movimientos">
+                <MenuItem text="Registrar Movimientos" onAction="#handleMovimientos"/>
+            </Menu>
+            <Menu text="Reportes">
+                <MenuItem text="Ver Reportes" onAction="#handleReportes"/>
+            </Menu>
+            <Menu text="Ayuda">
+                <MenuItem text="Acerca de"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <StackPane fx:id="contentArea">
+            <VBox alignment="CENTER" spacing="20">
+                <Label fx:id="welcomeLabel" text="Bienvenido"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Label text="Panel Principal del Sistema de Inventario"
+                       style="-fx-font-size: 18px; -fx-text-fill: #34495e;"/>
+                <Label text="Seleccione una opción del menú para comenzar"
+                       style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                <Label text="Módulos disponibles: Productos ✓ | Categorías ✓ | Movimientos ✓"
+                       style="-fx-font-size: 14px; -fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox style="-fx-padding: 10; -fx-background-color: #ecf0f1;"
+              alignment="CENTER_RIGHT">
+            <Label fx:id="statusLabel" text="Sistema de Inventario v1.0"/>
+        </HBox>
+    </bottom>
+</BorderPane>
