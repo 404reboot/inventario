@@ -1,18 +1,24 @@
-module inventario {
+module com.example.inventario {
+    // Módulos requeridos base
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.sql;
+    requires transitive javafx.graphics;
+    requires transitive java.sql;
     requires mysql.connector.j;
-    requires com.github.librepdf.openpdf;
-    requires javafx.base;
-    requires javafx.graphics;
     requires java.desktop;
 
-    exports App;
-    exports Controller;
-    exports Model;
+    // 🔥 NUEVO: Módulos necesarios para los Reportes (iText y Apache POI)
+    requires itextpdf;
+    requires org.apache.poi.poi;
+    requires org.apache.poi.ooxml;
 
-    opens App to javafx.fxml;
-    opens Controller to javafx.fxml;
-    opens View to javafx.fxml;
+    // Exportar paquetes
+    exports app;
+    exports controlador;
+    exports modelo;
+
+    // Abrir paquetes para JavaFX (Ajustado para corregir accesos de componentes)
+    opens app to javafx.fxml;
+    opens controlador to javafx.fxml;
+    opens modelo to javafx.fxml, javafx.base; // <-- Añadido javafx.base para el mapeo de tablas
 }

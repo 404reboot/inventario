@@ -5,7 +5,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Controller.MainController"
+            fx:controller="controlador.MainController"
             prefWidth="1024" prefHeight="768">
 
     <top>
@@ -23,8 +23,7 @@
                 <MenuItem text="Registrar Movimientos" onAction="#handleMovimientos"/>
             </Menu>
             <Menu text="Reportes">
-                <MenuItem text="Inventario General"/>
-                <MenuItem text="Productos con Stock Bajo"/>
+                <MenuItem text="Ver Reportes" onAction="#handleReportes"/>
             </Menu>
             <Menu text="Ayuda">
                 <MenuItem text="Acerca de"/>
@@ -41,6 +40,8 @@
                        style="-fx-font-size: 18px; -fx-text-fill: #34495e;"/>
                 <Label text="Seleccione una opción del menú para comenzar"
                        style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                <Label text="Módulos disponibles: Productos ✓ | Categorías ✓ | Movimientos ✓"
+                       style="-fx-font-size: 14px; -fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
             </VBox>
         </StackPane>
     </center>
